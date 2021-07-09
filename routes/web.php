@@ -65,3 +65,18 @@ Route::get("gallery/ant", function () {
 
     return view("ant", compact("ant"));
 });
+
+Route::get("/teacher" , function (){
+	return view("teacher");
+});
+
+Route::get("/student" , function (){
+	return view("student");
+});
+
+ 
+
+ 
+Route::get('/table', function () {
+    return view('table');
+});
