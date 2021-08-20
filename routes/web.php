@@ -96,13 +96,13 @@ Route::get("/coronavirus", [MyProfileController::class, "coronavirus"]);
 // Route::resource('/covid19', Covid19Controller::class );
 use App\Http\Controllers\StaffController;
 
-Route::get("/staff/create",[ StaffController::class , "create" ]);
-Route::get("/staff/{id}/edit", [ StaffController::class , "edit" ]);
-Route::get('/staff', [ StaffController::class,"index" ]);
-Route::get('/staff/{id}',[ StaffController::class,'show' ]);
-Route::post("/staff",[ StaffController::class , "store" ]);
-Route::patch("/staff/{id}", [StaffController::class , "update" ]);
-Route::delete('/staff/{id}', [ StaffController::class , 'destroy' ]);
+Route::get("/staff/create", [StaffController::class, "create"]);
+Route::get("/staff/{id}/edit", [StaffController::class, "edit"]);
+Route::get('/staff', [StaffController::class, "index"]);
+Route::get('/staff/{id}', [StaffController::class, 'show']);
+Route::post("/staff", [StaffController::class, "store"]);
+Route::patch("/staff/{id}", [StaffController::class, "update"]);
+Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
 
 // Route::get("/covid19/create",[ Covid19Controller::class , "create" ]);
 // Route::get("/covid19/{id}/edit", [ Covid19Controller::class , "edit" ]);
@@ -111,3 +111,7 @@ Route::delete('/staff/{id}', [ StaffController::class , 'destroy' ]);
 // Route::post("/covid19",[ Covid19Controller::class , "store" ]);
 // Route::patch("/covid19/{id}", [ Covid19Controller::class , "update" ]);
 // Route::delete('/covid19/{id}', [ Covid19Controller::class , 'destroy' ]);
+
+use App\Http\Controllers\PostController; 
+// Route::resource('post', 'PostController'); 
+Route::resource('post', PostController::class);
