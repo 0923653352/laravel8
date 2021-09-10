@@ -39,3 +39,14 @@ Route::get('/table', function () {
     return view('table');
 });
 
+
+// Route::resource('profile', 'ProfileController');
+// Route::resource('user', 'UserController');
+// Route::resource('vehicle', 'VehicleController');
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
+Route::resource('profile', ProfileController::class);
+Route::resource('user', UserController::class);
+Route::resource('vehicle', VehicleController::class);
