@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-    
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -44,9 +44,20 @@ Route::get('/table', function () {
 // Route::resource('user', 'UserController');
 // Route::resource('vehicle', 'VehicleController');
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\VehicleController;
-Route::resource('profile', ProfileController::class);
-Route::resource('user', UserController::class);
-Route::resource('vehicle', VehicleController::class);
+// use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\VehicleController;
+
+// Route::resource('profile', ProfileController::class);
+// Route::resource('user', UserController::class);
+// Route::resource('vehicle', VehicleController::class);
+
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OrderProductController;
+use App\Http\Controllers\ProductController;
+
+Route::resource('order', OrderController::class);
+Route::resource('payment', PaymentController::class);
+Route::resource('order-product', OrderProductController::class);
+Route::resource('product', ProductController::class);
