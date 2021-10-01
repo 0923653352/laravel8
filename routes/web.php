@@ -52,12 +52,13 @@ Route::get('/table', function () {
 // Route::resource('user', UserController::class);
 // Route::resource('vehicle', VehicleController::class);
 
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\OrderProductController;
-use App\Http\Controllers\ProductController;
-
-Route::resource('order', OrderController::class);
-Route::resource('payment', PaymentController::class);
-Route::resource('order-product', OrderProductController::class);
+use App\Http\Controllers\OrderController; //เขียนเพิ่ม
+use App\Http\Controllers\PaymentController; //เขียนเพิ่ม
+use App\Http\Controllers\OrderProductController; //เขียนเพิ่ม
+use App\Http\Controllers\ProductController; //เขียนเพิ่ม
 Route::resource('product', ProductController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('order', OrderController::class);
+    Route::resource('payment', PaymentController::class);
+    Route::resource('order-product', OrderProductController::class);
+});
