@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\OrderProduct;
 use App\Models\Product;
 
+
 class OrderController extends Controller
 {
     /**
@@ -21,23 +22,35 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
+        // $keyword = $request->get('search');
+        $perPage = 25; // เเสดงผล ไอเท็ม ต่อหน้า
 
-        if (!empty($keyword)) {
-            $order = Order::where('user_id', 'LIKE', "%$keyword%")
-                ->orWhere('remark', 'LIKE', "%$keyword%")
-                ->orWhere('total', 'LIKE', "%$keyword%")
-                ->orWhere('status', 'LIKE', "%$keyword%")
-                ->orWhere('checking_at', 'LIKE', "%$keyword%")
-                ->orWhere('paid_at', 'LIKE', "%$keyword%")
-                ->orWhere('cancelled_at', 'LIKE', "%$keyword%")
-                ->orWhere('completed_at', 'LIKE', "%$keyword%")
-                ->orWhere('tracking', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $order = Order::latest()->paginate($perPage);
+        switch (Auth::user()->role) {
+            case "admin":
+                $order = Order::latest()->paginate($perPage);
+                break;
+            default:
+                //means guest เนื่องจากว่าเราต้องการให้ 
+                // Admin (ร้านค้า) เห็น Order ของทุกคน
+                // ส่วนผู้ใช้ทั่วไปเห็น Order ตนเองเท่านั้น where('user_id', Auth::id())->
+                $order = Order::where('user_id', Auth::id())->latest()->paginate($perPage);
         }
+
+
+        // if (!empty($keyword)) {
+        //     $order = Order::where('user_id', 'LIKE', "%$keyword%")
+        //         ->orWhere('remark', 'LIKE', "%$keyword%")
+        //         ->orWhere('total', 'LIKE', "%$keyword%")
+        //         ->orWhere('status', 'LIKE', "%$keyword%")
+        //         ->orWhere('checking_at', 'LIKE', "%$keyword%")
+        //         ->orWhere('paid_at', 'LIKE', "%$keyword%")
+        //         ->orWhere('cancelled_at', 'LIKE', "%$keyword%")
+        //         ->orWhere('completed_at', 'LIKE', "%$keyword%")
+        //         ->orWhere('tracking', 'LIKE', "%$keyword%")
+        //         ->latest()->paginate($perPage);
+        // } else {
+        //     $order = Order::latest()->paginate($perPage);
+        // }
 
         return view('order.index', compact('order'));
     }
@@ -128,6 +141,15 @@ class OrderController extends Controller
         $requestData = $request->all();
 
         $order = Order::findOrFail($id);
+        switch ($requestData['status']) {
+            case "paid":
+                $requestData['paid_at'] = date("Y-m-d H:i:s");
+                break;
+            case "completed":
+                $requestData['completed_at'] = date("Y-m-d H:i:s");
+                break;
+        }
+
         $order->update($requestData);
 
         return redirect('order')->with('flash_message', 'Order updated!');

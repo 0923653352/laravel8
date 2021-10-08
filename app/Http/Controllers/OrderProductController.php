@@ -9,6 +9,8 @@ use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class OrderProductController extends Controller
 {
     /**
@@ -16,6 +18,7 @@ class OrderProductController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');

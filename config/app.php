@@ -67,8 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-
+    // 'timezone' => 'UTC', ใช้กับทั่วโลก
+    'timezone' => 'Asia/Bangkok',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        //Add this line of code
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -231,6 +233,8 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        //Add this line of code
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
